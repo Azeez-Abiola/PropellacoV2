@@ -64,3 +64,30 @@
 .heartbeat {
   animation: heartbeat 4s ease-in-out infinite;
 }
+
+/* Scrolling text animation for mobile */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.scrolling-text-container {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.scrolling-text {
+  display: inline-flex;
+  animation: scroll-left 20s linear infinite;
+  white-space: nowrap;
+}
+
+.scrolling-text span {
+  white-space: nowrap;
+  flex-shrink: 0;
+}

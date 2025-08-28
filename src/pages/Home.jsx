@@ -43,13 +43,31 @@ function Home() {
 
         {/* Large Logo Overlay - like 10k Projects */}
         <div className="absolute inset-0 flex items-center justify-center">
+          {/* Desktop version - static */}
           <div
-            className="text-black/20 text-8xl md:text-9xl lg:text-[12rem] font-black"
+            className="hidden md:block text-black/20 text-8xl md:text-9xl lg:text-[12rem] font-black"
             style={{ fontFamily: "'Aquawax', 'aquawax', sans-serif" }}
           >
             PROPELLACO
+          </div>
+          
+          {/* Mobile version - scrolling animation */}
+          <div className="md:hidden w-full overflow-hidden">
+            <div className="scrolling-text-container">
+              <div className="scrolling-text">
+                <span className="text-black/20 text-6xl font-black" style={{ fontFamily: "'Aquawax', 'aquawax', sans-serif" }}>
+                  PROPELLACO
+                </span>
+                <span className="text-black/20 text-6xl font-black ml-8" style={{ fontFamily: "'Aquawax', 'aquawax', sans-serif" }}>
+                  PROPELLACO
+                </span>
+                <span className="text-black/20 text-6xl font-black ml-8" style={{ fontFamily: "'Aquawax', 'aquawax', sans-serif" }}>
+                  PROPELLACO
+                </span>
+              </div>
             </div>
           </div>
+        </div>
 
         {/* Hero Content - Move further down and gold bg spans full width */}
         <div
