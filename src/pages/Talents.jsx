@@ -53,7 +53,7 @@ function Talents() {
   ]
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center pt-20 md:pt-32 bg-white px-4">
+    <div className="min-h-screen flex flex-col items-center justify-center pt-20 md:pt-24 bg-white px-4">
       {/* Talents Header */}
       <div className="mb-12 md:mb-20 text-center">
         <h1 className="text-3xl md:text-5xl lg:text-6xl font-aquawax font-bold text-[#E5C15C] mb-4 md:mb-6 italic">

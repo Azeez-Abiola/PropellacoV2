@@ -10,15 +10,15 @@ function Navigation({ currentPage }) {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm border-b border-gray-200">
-      <div className="max-w-7xl mx-auto px-4 md:px-6" style={{ height: '7.5rem' }}>
-        <div className="flex items-center justify-between relative h-full">
+      <div className="max-w-7xl mx-auto px-4 md:px-6">
+        <div className="flex items-center justify-between relative h-20 md:h-24">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <Link to="/" className="flex items-center" aria-label="Home" style={{ height: '100%' }}>
+            <Link to="/" className="flex items-center" aria-label="Home">
               <img
                 src="/images/Propellacologo1.png"
                 alt="Propellaco Logo"
-                className="w-32 md:w-48 lg:w-[28rem] h-auto"
+                className="w-32 md:w-48 lg:w-56 h-auto"
                 style={{
                   maxHeight: '100%',
                   objectFit: 'contain',

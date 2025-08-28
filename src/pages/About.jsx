@@ -4,15 +4,16 @@ function About() {
   const logoRef = useRef(null)
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center justify-start bg-white px-4 md:px-0" style={{ overflow: 'hidden' }}>
+    <div className="w-full min-h-screen flex flex-col items-center justify-start bg-white px-4 md:px-0 pt-20 md:pt-24" style={{ overflow: 'hidden' }}>
       {/* Propellaco Gold SVG Logo at the Top */}
-      <div className="mt-0 mb-0 flex flex-col items-center" style={{ marginTop: '-2rem' }}>
+      <div className="mt-0 mb-0 flex flex-col items-center">
         <img
           src="/images/Propellaco Logo (Gold).svg"
           alt="Propellaco Gold Logo"
+          className="heartbeat"
           style={{
             width: '100%',
-            maxWidth: '48rem',
+            maxWidth: '80rem',
             height: 'auto',
             userSelect: 'none',
             display: 'block',
@@ -22,7 +23,7 @@ function About() {
         />
       </div>
       {/* About Text */}
-      <div className="max-w-2xl px-4 md:px-6 text-center" style={{ marginTop: '-4rem' }}>
+      <div className="max-w-2xl px-4 md:px-6 text-center mt-4 md:mt-6">
         <p
           className="mb-3 md:mb-1"
           style={{

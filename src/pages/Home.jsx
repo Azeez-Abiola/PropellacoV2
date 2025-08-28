@@ -22,9 +22,9 @@ function Home() {
   }, [artistImages.length])
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="h-screen bg-white pt-20 md:pt-24 overflow-hidden">
       {/* Hero Section with Fading Artist Images */}
-      <section className="relative h-screen overflow-hidden">
+      <section className="relative h-full">
         {/* Background Images with Fade Effect */}
         {artistImages.map((image, index) => (
           <div
@@ -60,12 +60,11 @@ function Home() {
         >
           {/* Gold sunray background spanning full width and hidden bottom */}
           <div
-            className="relative w-screen left-1/2 -translate-x-1/2"
+            className="relative w-full"
             style={{
               borderRadius: 0,
               overflow: 'hidden',
               boxShadow: '0 8px 32px 0 rgba(0,0,0,0.18)',
-              maxWidth: '100vw',
               height: '13rem', // make it tall enough so the bottom is hidden
             }}
           >
