@@ -8,7 +8,7 @@ function Home() {
     '/images/artist-1.jpg',
     '/images/artist-2.jpg',
     '/images/artist-3.jpg',
-    '/images/artist-4.jpg',
+    '/images/artist-m4.jpg',
     '/images/artist-5.jpg'
   ]
 
@@ -120,28 +120,28 @@ function Home() {
               }}
             />
             <div className="relative z-10 py-8 md:py-14 px-6 flex flex-col items-center justify-center h-full">
-              <p
-                className="text-2xl md:text-4xl font-extrabold tracking-wide mb-2"
-                style={{
-                  fontFamily: "'Aquawax', 'aquawax', sans-serif",
-                  color: '#1a1a1a',
-                  textShadow: '0 2px 12px rgba(0,0,0,0.05)',
-                  letterSpacing: '0.04em',
-                }}
-              >
-                BUILDING FUTURES IN MUSIC
-              </p>
-              <p
-                className="text-xl md:text-2xl font-bold tracking-wide mb-2"
-                style={{
-                  fontFamily: "'Candara', 'candara', sans-serif",
-                  color: '#333333',
-                  textShadow: '0 2px 12px rgba(0,0,0,0.05)',
-                  letterSpacing: '0.04em',
-                }}
-              >
-                TOUCHING THE SKY TOGETHER
-              </p>
+                              <p
+                  className="text-2xl md:text-4xl font-extrabold tracking-wide mb-2"
+                  style={{
+                    fontFamily: "'Aquawax', 'aquawax', sans-serif",
+                    color: '#1a1a1a',
+                    textShadow: '0 2px 12px rgba(0,0,0,0.05)',
+                    letterSpacing: '0.04em',
+                  }}
+                >
+                  BUILDING FUTURES IN MUSIC
+                </p>
+                <p
+                  className="text-xl md:text-2xl font-bold tracking-wide mb-2"
+                  style={{
+                    fontFamily: "'Candara', 'candara', sans-serif",
+                    color: '#333333',
+                    textShadow: '0 2px 12px rgba(0,0,0,0.05)',
+                    letterSpacing: '0.04em',
+                  }}
+                >
+                  TOUCHING THE SKY TOGETHER
+                </p>
               <p
                 className="text-xl md:text-2xl font-bold tracking-wide"
                 style={{

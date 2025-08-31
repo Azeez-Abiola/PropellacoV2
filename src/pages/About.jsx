@@ -6,17 +6,12 @@ function About() {
   return (
     <div className="w-full min-h-screen flex flex-col items-center justify-start bg-white px-4 md:px-0 pt-20 md:pt-24" style={{ overflow: 'hidden' }}>
       {/* Propellaco Gold SVG Logo at the Top */}
-      <div className="mt-0 mb-0 flex flex-col items-center">
+      <div className="mt-0 mb-0 flex flex-col items-center w-full">
         <img
           src="/images/Propellaco Logo (Gold).svg"
           alt="Propellaco Gold Logo"
-          className="heartbeat"
+          className="heartbeat w-[80vw] md:w-[30vw] max-w-[80vw] md:max-w-[30vw] h-auto select-none block"
           style={{
-            width: '100%',
-            maxWidth: '80rem',
-            height: 'auto',
-            userSelect: 'none',
-            display: 'block',
             filter: 'drop-shadow(0 2px 36px rgba(229,193,92,0.24))',
           }}
           draggable={false}

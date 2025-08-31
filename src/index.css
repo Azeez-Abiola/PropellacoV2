@@ -65,6 +65,32 @@
   animation: heartbeat 4s ease-in-out infinite;
 }
 
+/* Artist name heartbeat animation */
+@keyframes artist-heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.02);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.02);
+  }
+  70% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.artist-heartbeat {
+  animation: artist-heartbeat 3s ease-in-out infinite;
+}
+
 /* Scrolling text animation for mobile */
 @keyframes scroll-left {
   0% {
@@ -87,7 +113,40 @@
   white-space: nowrap;
 }
 
-.scrolling-text span {
-  white-space: nowrap;
-  flex-shrink: 0;
-}
+ .scrolling-text span {
+   white-space: nowrap;
+   flex-shrink: 0;
+ }
+
+   /* Typing animation for artist page headings */
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  @keyframes blink-caret {
+    from, to {
+      border-color: transparent;
+    }
+    50% {
+      border-color: #E5C15C;
+    }
+  }
+
+  .typing-text {
+    overflow: hidden;
+    border-right: 3px solid #E5C15C;
+    white-space: nowrap;
+    color: #E5C15C;
+    font-weight: 900;
+    font-style: italic;
+    text-shadow: 2px 2px 4px rgba(229, 193, 92, 0.3);
+    animation: 
+      typing 3s steps(40, end) forwards,
+      blink-caret 0.75s step-end 3s;
+    animation-fill-mode: forwards;
+  }
