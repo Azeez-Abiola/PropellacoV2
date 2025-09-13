@@ -1,185 +1,233 @@
 import { useParams, Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 
 function ArtistPage() {
   const { artistName } = useParams()
+  const [currentSlide, setCurrentSlide] = useState(0)
 
-  // Map artist names to their corresponding images
-  const getArtistImage = (name) => {
-    const artistMap = {
-      'artemas': '/images/artist-1.jpg',
-      'dthang': '/images/artist-2.jpg',
-      'ot7-quanny': '/images/artist-3.jpg',
-      'che': '/images/artist-4.jpg',
-      'will-swinton': '/images/artist-5.jpg',
-      'nafeesisboujee': '/images/artist-1.jpg',
-      'ice-spice': '/images/artist-2.jpg',
-      'hailey-knox': '/images/artist-3.jpg',
-      'between-friends': '/images/artist-4.jpg',
-      'chezile': '/images/artist-5.jpg',
-      'abe-parker': '/images/artist-1.jpg',
-      'trippie-redd': '/images/artist-2.jpg',
-      'rich-amiri': '/images/artist-3.jpg',
-      'the-living-tombstone': '/images/artist-4.jpg',
-      'salem-ilese': '/images/artist-5.jpg',
-      'chicken-p': '/images/artist-1.jpg',
-      'ytb-fatt': '/images/artist-2.jpg',
-      'surfaces': '/images/artist-3.jpg',
-      'jessica-baio': '/images/artist-4.jpg',
-      'dro-kenji': '/images/artist-5.jpg',
-      'paygotti': '/images/artist-1.jpg',
-      'aminé': '/images/artist-2.jpg',
-      'summrs': '/images/artist-3.jpg',
-      'sunday-scaries': '/images/artist-4.jpg',
-      'natalie-jane': '/images/artist-5.jpg',
-      'psychic-fever': '/images/artist-1.jpg'
+  // Enhanced artist data with SLIDE images integration
+  const getArtistData = (name) => {
+    const baseData = {
+      genre: 'Hip-Hop / R&B',
+      location: 'Los Angeles, CA',
+      followers: '2.4M',
+      monthlyListeners: '8.7M',
+      socialLinks: {
+        instagram: '#',
+        twitter: '#',
+        spotify: '#',
+        youtube: '#',
+        soundcloud: '#'
+      }
     }
-    return artistMap[name] || '/images/artist-1.jpg'
+
+    // Special artist that uses SLIDE images from homepage
+    if (name === 'daiverse' || name === 'daiverse-cocaine') {
+      return {
+        ...baseData,
+        name: 'DAIVERSE',
+        displayName: 'Daiverse',
+        tagline: 'COCAINE',
+        backgroundImage: '/images/SLIDE-1-.JPG',
+        bio: 'Born from the streets of Atlanta, Daiverse emerged as a revolutionary force in hip-hop. His unique blend of melodic rap and hard-hitting beats has captured the attention of millions worldwide. With tracks like "Cocaine" taking over the charts, Daiverse represents the new wave of authentic storytelling in music that speaks to the soul and challenges the status quo.',
+        accentColor: '#E5C15C'
+      }
+    }
+
+    // Regular artists with their images as backgrounds
+    const artistMap = {
+      'artemas': {
+        name: 'ARTEMAS',
+        displayName: 'Artemas',
+        tagline: 'RISING STAR',
+        backgroundImage: '/images/artist-1.jpg',
+        bio: 'Rising star with a unique blend of alternative rock and modern pop, creating anthems for the next generation. Artemas is redefining the boundaries of modern music with their innovative approach and authentic storytelling. From humble beginnings to chart-topping success, their journey represents the essence of artistic evolution and creative excellence.',
+        accentColor: '#48295B'
+      },
+      'ice-spice': {
+        name: 'ICE SPICE',
+        displayName: 'Ice Spice',
+        tagline: 'BRONX PRINCESS',
+        backgroundImage: '/images/artist-2.jpg',
+        bio: 'The Bronx princess taking over the rap game with her fiery flows and undeniable charisma. Ice Spice has become a cultural phenomenon, bringing authentic Bronx energy to the mainstream. Her meteoric rise represents the power of staying true to your roots while conquering new heights.',
+        accentColor: '#E5C15C'
+      },
+      'trippie-redd': {
+        name: 'TRIPPIE REDD',
+        displayName: 'Trippie Redd',
+        tagline: 'MELODIC GENIUS',
+        backgroundImage: '/images/artist-3.jpg',
+        bio: 'A melodic genius who has revolutionized the hip-hop landscape with his distinctive sound and emotional depth. Trippie Redd continues to push boundaries and inspire a new generation of artists with his innovative approach to music and authentic artistic expression.',
+        accentColor: '#48295B'
+      },
+      'ytb-fatt': {
+        name: 'YTB FATT',
+        displayName: 'YTB Fatt',
+        tagline: 'STREET SCHOLAR',
+        backgroundImage: '/images/artist-4.jpg',
+        bio: 'Street scholar and lyrical mastermind bringing authentic narratives from the ground up. YTB Fatt represents the raw essence of hip-hop culture, delivering powerful messages through his music while staying true to his roots and inspiring his community.',
+        accentColor: '#E5C15C'
+      },
+      'aminé': {
+        name: 'AMINÉ',
+        displayName: 'Aminé',
+        tagline: 'CREATIVE VISIONARY',
+        backgroundImage: '/images/artist-5.jpg',
+        bio: 'Creative visionary blending genres and breaking conventional boundaries with every release. Aminé brings a fresh perspective to modern music, combining thoughtful lyricism with innovative production to create a sound that is uniquely his own.',
+        accentColor: '#48295B'
+      },
+      'dthang': {
+        name: 'DTHANG',
+        displayName: 'Dthang',
+        tagline: 'STREET KING',
+        backgroundImage: '/images/artist-1.jpg',
+        bio: 'Street king dominating the hip-hop scene with authentic narratives and powerful delivery. Dthang represents the raw energy of modern rap culture.',
+        accentColor: '#E5C15C'
+      },
+      'hailey-knox': {
+        name: 'HAILEY KNOX',
+        displayName: 'Hailey Knox',
+        tagline: 'POP SENSATION',
+        backgroundImage: '/images/artist-2.jpg',
+        bio: 'Pop sensation captivating audiences with her unique sound and magnetic presence. Hailey Knox is redefining what it means to be a modern pop artist.',
+        accentColor: '#48295B'
+      },
+      'rich-amiri': {
+        name: 'RICH AMIRI',
+        displayName: 'Rich Amiri',
+        tagline: 'MELODIC MASTERMIND',
+        backgroundImage: '/images/artist-3.jpg',
+        bio: 'Melodic mastermind crafting the future of hip-hop with innovative sounds and authentic storytelling. Rich Amiri is a force to be reckoned with.',
+        accentColor: '#E5C15C'
+      },
+      'efue': {
+        name: 'EFUE',
+        displayName: 'Efue',
+        tagline: 'AFRO-SOUL SENSATION',
+        backgroundImages: ['/images/SLIDE-1-.JPG', '/images/SLIDE-2.JPG', '/images/SLIDE-3.JPG'],
+        backgroundImage: '/images/SLIDE-1-.JPG',
+        bio: 'Efue is an Afro-soul musician who uses her music to express her personal feelings and experiences, particularly those that are difficult to articulate verbally. She is known for her EP, "Memorabilia," and has been featured on Apple Music\'s "Up Next Nigeria" playlist. As a person, she is an introvert who loves reading, watching anime, and writing.',
+        accentColor: '#E5C15C',
+        genre: 'Afro-Soul',
+        hasSlider: true
+      }
+    }
+
+    const artist = artistMap[name] || artistMap['artemas']
+    return { ...baseData, ...artist }
   }
 
-  // Mock artist data - in a real app, this would come from an API
-  const artistData = {
-    name: artistName?.replace(/-/g, ' ').toUpperCase() || 'ARTIST',
-    image: getArtistImage(artistName),
-    bio: `Hailing from the vibrant music scene, ${artistName?.replace(/-/g, ' ')} has been making waves with their unique sound and undeniable talent. With a passion for creating authentic music that resonates with audiences worldwide, they continue to push boundaries and inspire the next generation of artists. Their innovative approach to music production and storytelling has earned them recognition across the industry.`,
-    genre: 'Hip-Hop / R&B',
-    location: 'Los Angeles, CA',
-    followers: '2.4M',
-    monthlyListeners: '8.7M',
-    socialLinks: {
-      instagram: '#',
-      twitter: '#',
-      spotify: '#',
-      appleMusic: '#',
-      youtube: '#',
-      soundcloud: '#'
+  const artistData = getArtistData(artistName)
+
+  // Auto-slide effect for Efue
+  useEffect(() => {
+    if (artistData.hasSlider && artistData.backgroundImages) {
+      const interval = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % artistData.backgroundImages.length)
+      }, 4000)
+      return () => clearInterval(interval)
     }
+  }, [artistData.hasSlider, artistData.backgroundImages])
+
+  // Get current background image
+  const getCurrentBackgroundImage = () => {
+    if (artistData.hasSlider && artistData.backgroundImages) {
+      return artistData.backgroundImages[currentSlide]
+    }
+    return artistData.backgroundImage
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 pt-20">
-      {/* Hero Section with Background Pattern */}
-      <div className="relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }}></div>
-        </div>
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Full Background Image */}
+      <div 
+        className="absolute inset-0 transition-all duration-1000 ease-in-out bg-center md:bg-[center_20%] bg-cover bg-no-repeat"
+        style={{
+          backgroundImage: `url(${getCurrentBackgroundImage()})`,
+        }}
+      >
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/40"></div>
+      </div>
 
-        <div className="max-w-7xl mx-auto px-4 md:px-6 py-12 md:py-20 relative z-10">
-          {/* Artist Header */}
-          <div className="text-center mb-16 md:mb-24">
-            <div className="inline-flex items-center px-4 py-2 bg-[#E5C15C]/10 rounded-full mb-6">
-              <span className="text-[#E5C15C] font-semibold text-sm">PROPELLACO ARTIST</span>
-            </div>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-aquawax font-black text-gray-900 mb-6 leading-tight artist-heartbeat">
-              {artistData.name}
-            </h1>
-            <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-sm md:text-base">
-              <span className="px-4 py-2 bg-purple-100 text-purple-700 rounded-full font-medium">{artistData.genre}</span>
-              <span className="px-4 py-2 bg-blue-100 text-blue-700 rounded-full font-medium">{artistData.location}</span>
-              <span className="px-4 py-2 bg-green-100 text-green-700 rounded-full font-medium">{artistData.followers} Followers</span>
-            </div>
-          </div>
+      {/* Back Button */}
+      <div className="absolute top-8 left-8 z-50 hidden md:block">
+        <Link
+          to="/talents"
+          className="inline-flex items-center px-6 py-3 bg-black/50 backdrop-blur-sm text-white rounded-full hover:bg-black/70 transition-all duration-300 border border-white/20 cursor-pointer"
+        >
+          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          <span className="font-medium">BACK</span>
+        </Link>
+      </div>
 
-          {/* Main Content Grid */}
-          <div className="grid lg:grid-cols-12 gap-8 md:gap-12 items-start">
-            {/* Left Column - Image and Stats */}
-            <div className="lg:col-span-5 space-y-8">
-                             {/* Artist Image with Effects */}
-               <div className="relative group">
-                 <div className="absolute -inset-4 bg-gradient-to-r from-[#E5C15C]/20 via-purple-500/20 to-[#E5C15C]/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                 <div className="relative">
-                   <img
-                     src={artistData.image}
-                     alt={artistData.name}
-                     className="w-full h-auto shadow-2xl transform group-hover:scale-[1.02] transition-transform duration-500"
-                   />
-                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
-                 </div>
-               </div>
-            </div>
+      {/* Listen Button */}
+      <div className="absolute bottom-40 md:bottom-48 lg:bottom-52 left-1/2 transform -translate-x-1/2 z-30">
+        <button 
+          className="px-12 py-4 bg-propellaco-sunray text-propellaco-purple font-bold rounded-full text-lg hover:scale-110 transition-all duration-300 shadow-2xl hover:shadow-propellaco-sunray/30 backdrop-blur-sm border border-propellaco-sunray/20 tracking-widest"
+          style={{ fontFamily: "'Aquawax', 'aquawax', sans-serif" }}
+        >
+          LISTEN
+        </button>
+      </div>
 
-                         {/* Right Column - Bio and Social */}
-             <div className="lg:col-span-7 space-y-8">
-                               {/* Bio Section */}
-                <div className="p-8 md:p-10">
-                                     <h2 className="text-2xl md:text-3xl font-bold text-[#E5C15C] mb-6 typing-text" style={{ fontFamily: "'Playfair Display', 'Georgia', serif", fontStyle: 'italic', fontWeight: '400' }}>
-                     Meet {artistData.name}
-                   </h2>
-                  <p className="text-lg md:text-xl font-candara text-gray-700 leading-relaxed mb-8">
-                    {artistData.bio}
-                  </p>
-                  
-                  {/* Social Media Icons */}
-                  <div className="flex flex-wrap gap-3 md:gap-4">
-                    <a
-                      href={artistData.socialLinks.instagram}
-                      className="group p-2 text-pink-600 hover:text-pink-700 transition-all duration-300 transform hover:scale-110"
-                    >
-                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                      </svg>
-                    </a>
-                    <a
-                      href={artistData.socialLinks.spotify}
-                      className="group p-2 text-green-600 hover:text-green-700 transition-all duration-300 transform hover:scale-110"
-                    >
-                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
-                      </svg>
-                    </a>
-                    <a
-                      href={artistData.socialLinks.appleMusic}
-                      className="group p-2 text-red-600 hover:text-red-700 transition-all duration-300 transform hover:scale-110"
-                    >
-                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M23.994 2.186a3.008 3.008 0 0 0-2.816-2.816C18.72-.017 12 0 12 0S5.28-.017 2.816.37A3.008 3.008 0 0 0 0 2.186v19.628a3.008 3.008 0 0 0 2.816 2.816C5.28 24.017 12 24 12 24s6.72.017 9.184-.37A3.008 3.008 0 0 0 24 21.814V2.186zM9.609 15.626V8.34l6.783 3.643-6.783 3.643z"/>
-                      </svg>
-                    </a>
-                    <a
-                      href={artistData.socialLinks.youtube}
-                      className="group p-2 text-red-600 hover:text-red-700 transition-all duration-300 transform hover:scale-110"
-                    >
-                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                      </svg>
-                    </a>
-                    <a
-                      href={artistData.socialLinks.twitter}
-                      className="group p-2 text-gray-700 hover:text-gray-900 transition-all duration-300 transform hover:scale-110"
-                    >
-                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                      </svg>
-                    </a>
-                    <a
-                      href={artistData.socialLinks.soundcloud}
-                      className="group p-2 text-orange-600 hover:text-orange-700 transition-all duration-300 transform hover:scale-110"
-                    >
-                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-             </div>
-          </div>
+      {/* Social Media Icons */}
+      <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 z-30">
+        <div className="flex items-center space-x-8">
+          <a 
+            href={artistData.socialLinks.youtube}
+            className="w-14 h-14 bg-black/30 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-red-600 hover:text-white transition-all duration-300 transform hover:scale-110 border border-white/30 hover:border-red-600 shadow-lg"
+          >
+            <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+          </a>
+          <a 
+            href={artistData.socialLinks.spotify}
+            className="w-14 h-14 bg-black/30 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-green-500 hover:text-white transition-all duration-300 transform hover:scale-110 border border-white/30 hover:border-green-500 shadow-lg"
+          >
+            <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+            </svg>
+          </a>
+          <a 
+            href={artistData.socialLinks.instagram}
+            className="w-14 h-14 bg-black/30 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-gradient-to-br hover:from-purple-600 hover:via-pink-500 hover:to-orange-400 hover:text-white transition-all duration-300 transform hover:scale-110 border border-white/30 hover:border-transparent shadow-lg"
+          >
+            <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12.017 0C8.396 0 7.989.013 7.041.048 6.094.082 5.45.204 4.896.388a7.9 7.9 0 0 0-2.85 1.85A7.9 7.9 0 0 0 .395 4.89C.21 5.444.088 6.088.054 7.035.019 7.983.006 8.39.006 12.011s.013 4.028.048 4.976c.034.947.156 1.591.34 2.145a7.9 7.9 0 0 0 1.851 2.85 7.9 7.9 0 0 0 2.854 1.852c.554.184 1.198.306 2.145.34.948.035 1.355.048 4.976.048s4.028-.013 4.976-.048c.947-.034 1.591-.156 2.145-.34a7.9 7.9 0 0 0 2.85-1.851 7.9 7.9 0 0 0 1.852-2.854c.184-.554.306-1.198.34-2.145.035-.948.048-1.355.048-4.976s-.013-4.028-.048-4.976c-.034-.947-.156-1.591-.34-2.145a7.9 7.9 0 0 0-1.851-2.85A7.9 7.9 0 0 0 19.138.388c-.554-.184-1.198-.306-2.145-.34C16.045.013 15.638 0 12.017 0zm0 2.162c3.204 0 3.584.012 4.85.07.3.012.921.166 1.532.376 1.3.5 2.347 1.548 2.847 2.847.21.611.364 1.232.376 1.532.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.012.3-.166.921-.376 1.532-.5 1.3-1.547 2.347-2.847 2.847-.611.21-1.232.364-1.532.376-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-.3-.012-.921-.166-1.532-.376a5.738 5.738 0 0 1-2.847-2.847c-.21-.611-.364-1.232-.376-1.532-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.012-.3.166-.921.376-1.532.5-1.3 1.547-2.347 2.847-2.847.611-.21 1.232-.364 1.532-.376 1.266-.058 1.646-.07 4.85-.07zm0 3.676a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 1 0 0-12.324zM12.017 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.846-10.405a1.441 1.441 0 0 1-2.88 0 1.441 1.441 0 0 1 2.88 0z"/>
+            </svg>
+          </a>
         </div>
       </div>
 
-      {/* Back to Talents Button */}
-      <div className="max-w-7xl mx-auto px-4 md:px-6 pb-12 md:pb-20">
-        <div className="text-center">
-          <Link
-            to="/talents"
-            className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#E5C15C] to-[#E5C15C]/80 text-white rounded-2xl hover:from-[#E5C15C]/90 hover:to-[#E5C15C]/70 transition-all duration-300 font-semibold text-lg shadow-xl hover:shadow-2xl transform hover:scale-105"
+      {/* Centered Content */}
+      <div className="relative z-20 min-h-screen flex items-center justify-center">
+        <div className="text-center text-white px-6 max-w-5xl">
+          {/* Artist Name */}
+          <h1 
+            className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black mb-8 leading-tight"
+            style={{
+              fontFamily: "'Aquawax', 'aquawax', sans-serif",
+              textShadow: '0 4px 20px rgba(0,0,0,0.8)',
+              letterSpacing: '0.02em'
+            }}
           >
-            <svg className="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            Back to Talents
-          </Link>
+            {artistName === 'efue' ? 'Efue' : `${artistData.displayName || artistData.name} - ${artistData.tagline}`}
+          </h1>
+
+          {/* Artist Bio */}
+          <p 
+            className="text-lg md:text-xl lg:text-2xl leading-relaxed max-w-4xl lg:max-w-3xl mx-auto opacity-90 mb-12 md:mb-16 lg:mb-20"
+            style={{ 
+              fontFamily: "'Candara', 'candara', sans-serif",
+              textShadow: '0 2px 10px rgba(0,0,0,0.8)'
+            }}
+          >
+            {artistData.bio}
+          </p>
         </div>
       </div>
     </div>

@@ -3,13 +3,11 @@ import { useState, useEffect } from 'react'
 function Home() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   
-  // Talent images that will fade in and out
+  // SLIDE images that will fade in and out
   const talentImages = [
-    '/images/artist-1.jpg',
-    '/images/artist-2.jpg',
-    '/images/artist-3.jpg',
-    '/images/artist-m4.jpg',
-    '/images/artist-5.jpg'
+    '/images/SLIDE-1-.JPG',
+    '/images/SLIDE-2.JPG',
+    '/images/SLIDE-3.JPG'
   ]
 
   useEffect(() => {
@@ -23,7 +21,7 @@ function Home() {
   }, [talentImages.length])
 
   return (
-    <div className="h-screen bg-white pt-20 md:pt-24 overflow-hidden">
+    <div className="h-screen bg-white pt-28 md:pt-32 overflow-hidden">
       {/* Hero Section with PROPELLACO Background and Talent Images in Front */}
       <section className="relative h-full">
         {/* Talent Images in Front with Fade Effect - Full Screen */}
@@ -36,8 +34,11 @@ function Home() {
               }`}
             >
               <div 
-                className="absolute inset-0 bg-cover bg-top bg-no-repeat"
-                style={{ backgroundImage: `url(${image})` }}
+                className="absolute inset-0 bg-cover bg-no-repeat"
+                style={{ 
+                  backgroundImage: `url(${image})`,
+                  backgroundPosition: 'center 20%'
+                }}
               />
               <div className="absolute inset-0 bg-gradient-to-b from-gray-800/40 to-gray-600/30" />
             </div>

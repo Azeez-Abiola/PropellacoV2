@@ -15,7 +15,7 @@ function AppContent() {
     if (path === '/') setCurrentPage('home')
     else if (path === '/talents') setCurrentPage('talents')
     else if (path === '/about') setCurrentPage('about')
-    else if (path.startsWith('/talents/')) setCurrentPage('talents')
+    else if (path.startsWith('/talents/')) setCurrentPage('artist')
   }, [location])
 
   return (
